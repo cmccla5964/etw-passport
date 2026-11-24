@@ -1,0 +1,133 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- Working name. To rename the site, find and replace "A Chicago food passport" in this file. -->
+<title>A Chicago food passport</title>
+<meta name="description" content="A printed passport with one independent Chicago restaurant for each country. First edition planned for this holiday season.">
+<meta property="og:title" content="A Chicago food passport">
+<meta property="og:description" content="A printed passport with one independent Chicago restaurant for each country.">
+<style>
+*{box-sizing:border-box}
+body{margin:0;background:#fdfcf9;color:#1f1f1f;font:18px/1.7 Charter,"Iowan Old Style","Palatino Linotype",Georgia,serif;-webkit-text-size-adjust:100%}
+main{max-width:600px;margin:0 auto;padding:64px 20px 80px}
+.sans{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif}
+.mark{font-size:13px;font-weight:600;letter-spacing:.04em;color:#7a6f5c;margin-bottom:44px}
+h1{font-size:28px;line-height:1.3;font-weight:600;margin:0 0 28px}
+p{margin:0 0 20px}
+a{color:#9b2f1f}
+hr{border:0;border-top:1px solid #e6e1d6;margin:44px 0}
+h2{font-size:15px;line-height:1.3;font-weight:600;margin:0 0 6px}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:36px}
+@media(max-width:620px){main{padding-top:40px}.two{grid-template-columns:1fr;gap:36px}}
+.two p{font-size:16px;line-height:1.6;margin-bottom:14px}
+input{display:block;width:100%;padding:11px 12px;margin:0 0 8px;border:1px solid #d4cec2;border-radius:4px;font:16px -apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;background:#fff;color:#1f1f1f}
+input:focus{outline:2px solid #9b2f1f;outline-offset:-1px;border-color:transparent}
+button{min-height:44px;padding:10px 16px;border:0;border-radius:4px;background:#1f1f1f;color:#fff;font:600 15px -apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;cursor:pointer}
+button[disabled]{opacity:.6;cursor:default}
+.done{font-size:16px;font-style:italic}
+.err{font-size:14px;color:#9b2f1f;margin:6px 0 0}
+.sig{font-style:italic}
+footer{font-size:13px;color:#8b8475;margin-top:56px}
+.hp{position:absolute;left:-9999px}
+</style>
+</head>
+<body>
+<main>
+  <div class="mark sans">A Chicago food passport</div>
+
+  <h1>I'm making a printed passport with one Chicago restaurant for each country.</h1>
+  <p>Vietnamese on Argyle. Pakistani on Devon. Polish in Avondale. Chicago already has most of the world in it.</p>
+  <p>The passport is a small book. Each page is a country, and each country is one independent Chicago restaurant: who runs it, what to order, where it is, and an empty space for a stamp.</p>
+  <p>You bring the book in, eat, and the restaurant stamps your page and gives you a small thank-you on your first visit. That's the whole idea.</p>
+  <p>The first edition is planned for this holiday season. I'm reaching out to restaurants one at a time, so if you got an email from me, this is what it was about. The details for restaurants are just below.</p>
+  <p class="sig">Caleb</p>
+
+  <hr>
+
+  <div class="two">
+    <section>
+      <h2 class="sans">If you run a restaurant</h2>
+      <p>It's free to be in the book. You get a page about your place: your story, what to order, where to find you.</p>
+      <p>In return, you stamp passports and give each guest one thank-you on their first visit. You choose what it is, something small like a drink or a side. It doesn't have to be a discount.</p>
+      <p>Easiest way to answer: reply to my email. Or leave a number here and I'll call.</p>
+      <form data-kind="restaurant" novalidate>
+        <input name="restaurant" aria-label="Restaurant name" placeholder="Restaurant name" autocomplete="organization" required>
+        <input name="contact" aria-label="Your phone or email" placeholder="Your phone or email" autocomplete="tel" required>
+        <input name="website" class="hp" tabindex="-1" autocomplete="off" aria-hidden="true">
+        <button>I'm interested</button>
+        <p class="done" hidden>Thank you. I'll be in touch within a day or two.</p>
+      </form>
+    </section>
+    <section>
+      <h2 class="sans">If you want a passport</h2>
+      <p>Leave your email and I'll write once, with the price and the date, as soon as I have both. Nothing else gets sent.</p>
+      <form data-kind="passport" novalidate>
+        <input name="email" type="email" aria-label="Your email" placeholder="Your email" autocomplete="email" required>
+        <input name="website" class="hp" tabindex="-1" autocomplete="off" aria-hidden="true">
+        <button>Tell me when</button>
+        <p class="done" hidden>Got it. You'll hear from me when it's ready.</p>
+      </form>
+    </section>
+  </div>
+
+  <footer class="sans" id="contact" hidden>Questions go straight to me: <a id="contact-link"></a></footer>
+</main>
+
+<script>
+// Settings. Leave contactEmail empty to hide the footer.
+// formEndpoint: any service that accepts a JSON POST (for example https://formspree.io/f/xxxx
+// or https://formsubmit.co/ajax/you@example.com).
+var SITE = {
+  formEndpoint: "",
+  contactEmail: ""
+};
+
+if (SITE.contactEmail) {
+  var a = document.getElementById("contact-link");
+  a.href = "mailto:" + SITE.contactEmail;
+  a.textContent = SITE.contactEmail;
+  document.getElementById("contact").hidden = false;
+}
+
+// ?r=CODE on the outreach link ties a sign-up back to the email that sent it.
+var ref = new URLSearchParams(location.search).get("r") || "";
+
+document.querySelectorAll("form").forEach(function (form) {
+  form.addEventListener("submit", function (e) {
+    e.preventDefault();
+    var old = form.querySelector(".err");
+    if (old) old.remove();
+    var fields = form.querySelectorAll("input[required]");
+    for (var i = 0; i < fields.length; i++) {
+      if (!fields[i].value.trim() || !fields[i].checkValidity()) { fields[i].focus(); return; }
+    }
+    if (form.website.value) return; // bot trap
+    var data = { kind: form.dataset.kind, ref: ref, page: location.href };
+    fields.forEach(function (f) { data[f.name] = f.value.trim(); });
+    data._subject = form.dataset.kind === "restaurant" ? "Restaurant interested: " + data.restaurant : "Passport sign-up";
+    var btn = form.querySelector("button");
+    btn.disabled = true;
+    fetch(SITE.formEndpoint, {
+      method: "POST",
+      headers: { "Content-Type": "application/json", "Accept": "application/json" },
+      body: JSON.stringify(data)
+    }).then(function (r) {
+      if (!r.ok) throw new Error(r.status);
+      form.querySelectorAll("input,button").forEach(function (el) { el.hidden = true; });
+      form.querySelector(".done").hidden = false;
+    }).catch(function () {
+      btn.disabled = false;
+      var p = document.createElement("p");
+      p.className = "err sans";
+      p.textContent = form.dataset.kind === "restaurant"
+        ? "That didn't go through. Replying to my email works just as well."
+        : "That didn't go through. Please try again in a minute.";
+      form.appendChild(p);
+    });
+  });
+});
+</script>
+</body>
+</html>
