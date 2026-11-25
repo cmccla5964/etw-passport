@@ -3,11 +3,11 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<!-- Working name. To rename the site, find and replace "A Chicago food passport" in this file. -->
-<title>A Chicago food passport</title>
-<meta name="description" content="A printed passport with one independent Chicago restaurant for each country. First edition planned for this holiday season.">
-<meta property="og:title" content="A Chicago food passport">
-<meta property="og:description" content="A printed passport with one independent Chicago restaurant for each country.">
+<!-- To rename the site, find and replace "Cross Streets" in this file. -->
+<title>Cross Streets</title>
+<meta name="description" content="A printed passport with one Chicago restaurant for each country.">
+<meta property="og:title" content="Cross Streets">
+<meta property="og:description" content="A printed passport with one Chicago restaurant for each country.">
 <style>
 *{box-sizing:border-box}
 body{margin:0;background:#fdfcf9;color:#1f1f1f;font:18px/1.7 Charter,"Iowan Old Style","Palatino Linotype",Georgia,serif;-webkit-text-size-adjust:100%}
@@ -36,39 +36,38 @@ footer{font-size:13px;color:#8b8475;margin-top:56px}
 </head>
 <body>
 <main>
-  <div class="mark sans">A Chicago food passport</div>
+  <div class="mark sans">Cross Streets</div>
 
   <h1>I'm making a printed passport with one Chicago restaurant for each country.</h1>
-  <p>Vietnamese on Argyle. Pakistani on Devon. Polish in Avondale. Chicago already has most of the world in it.</p>
-  <p>The passport is a thin booklet, like a real passport. Each page is a country, and each country is one independent Chicago restaurant: who runs it, what to order, where it is, and an empty space for a stamp.</p>
-  <p>You bring the passport in, eat, and the restaurant stamps your page and gives you a small thank-you on your first visit. That's the whole idea.</p>
-  <p>The first edition is planned for this holiday season. I'm reaching out to restaurants one at a time, so if you got an email from me, this is what it was about. The details for restaurants are just below.</p>
-  <p class="sig">Caleb</p>
+  <p>There's Vietnamese on Argyle and Pakistani on Devon, but it's still way too easy to end up at the same five places.</p>
+  <p>It's a thin little booklet, basically a real passport. Each country gets a page about one restaurant (no chains), who runs it and what you should order and where it is, and when you go eat there they stamp your page and the first time they'll throw in something small.</p>
+  <p>I'm hoping to have the first edition out for the holidays. I'm emailing restaurants one at a time right now, so if you got an email from me, this is what it was about. The restaurant stuff is further down.</p>
+  <p class="sig">- Caleb</p>
 
   <hr>
 
   <div class="two">
     <section>
-      <h2 class="sans">If you run a restaurant</h2>
-      <p>It's free to be in the passport. No fees, now or ever. You get a page about your place: your story, what to order, where to find you.</p>
-      <p>In return, you stamp passports and give each guest one thank-you on their first visit. You choose what it is, something small like a drink or a side. It doesn't have to be a discount.</p>
-      <p>Easiest way to answer: reply to my email. Or leave a number here and I'll call.</p>
+      <h2 class="sans">Restaurant owners</h2>
+      <p>It's free, and I'm not going to start charging you later. You'd get a page in it.</p>
+      <p>You'd just stamp people's passports and give them something small the first time they come in. Could be a drink or a side, your call. Doesn't need to be a discount.</p>
+      <p>The easiest thing is to just reply to my email. Or leave a number here and I'll call you.</p>
       <form data-kind="restaurant" novalidate>
         <input name="restaurant" aria-label="Restaurant name" placeholder="Restaurant name" autocomplete="organization" required>
-        <input name="contact" aria-label="Your phone or email" placeholder="Your phone or email" autocomplete="tel" required>
+        <input name="contact" type="tel" aria-label="Phone number" placeholder="Phone number" autocomplete="tel" required>
         <input name="website" class="hp" tabindex="-1" autocomplete="off" aria-hidden="true">
-        <button>I'm interested</button>
-        <p class="done" hidden>Thank you. I'll be in touch within a day or two.</p>
+        <button>Call me</button>
+        <p class="done" hidden>Got it, I'll call you in a day or two.</p>
       </form>
     </section>
     <section>
-      <h2 class="sans">If you want a passport</h2>
-      <p>Leave your email and I'll write once, with the price and the date, as soon as I have both. Nothing else gets sent.</p>
+      <h2 class="sans">Want one?</h2>
+      <p>Leave your email and I'll email you once I know the price and the date.</p>
       <form data-kind="passport" novalidate>
         <input name="email" type="email" aria-label="Your email" placeholder="Your email" autocomplete="email" required>
         <input name="website" class="hp" tabindex="-1" autocomplete="off" aria-hidden="true">
         <button>Tell me when</button>
-        <p class="done" hidden>Got it. You'll hear from me when it's ready.</p>
+        <p class="done" hidden>Cool, I'll email you when I know the price and date.</p>
       </form>
     </section>
   </div>
@@ -123,7 +122,7 @@ document.querySelectorAll("form").forEach(function (form) {
       var p = document.createElement("p");
       p.className = "err sans";
       p.textContent = form.dataset.kind === "restaurant"
-        ? "That didn't go through. Replying to my email works just as well."
+        ? "That didn't go through. Just reply to my email instead."
         : "That didn't go through. Please try again in a minute.";
       form.appendChild(p);
     });
