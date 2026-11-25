@@ -5,9 +5,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <!-- To rename the site, find and replace "Cross Streets" in this file. -->
 <title>Cross Streets</title>
-<meta name="description" content="A printed passport with one Chicago restaurant for each country.">
+<meta name="description" content="A printed passport with one independent Chicago restaurant for each country. Launching at the start of 2027.">
 <meta property="og:title" content="Cross Streets">
-<meta property="og:description" content="A printed passport with one Chicago restaurant for each country.">
+<meta property="og:description" content="A printed passport with one independent Chicago restaurant for each country. Launching at the start of 2027.">
 <style>
 *{box-sizing:border-box}
 body{margin:0;background:#fdfcf9;color:#1f1f1f;font:18px/1.7 Charter,"Iowan Old Style","Palatino Linotype",Georgia,serif;-webkit-text-size-adjust:100%}
@@ -39,35 +39,39 @@ footer{font-size:13px;color:#8b8475;margin-top:56px}
   <div class="mark sans">Cross Streets</div>
 
   <h1>I'm making a printed passport with one Chicago restaurant for each country.</h1>
-  <p>There's Vietnamese on Argyle and Pakistani on Devon, but it's still way too easy to end up at the same five places.</p>
-  <p>It's a thin little booklet, basically a real passport. Each country gets a page about one restaurant (no chains), who runs it and what you should order and where it is, and when you go eat there they stamp your page and the first time they'll throw in something small.</p>
-  <p>I'm hoping to have the first edition out for the holidays. I'm emailing restaurants one at a time right now, so if you got an email from me, this is what it was about. The restaurant stuff is further down.</p>
-  <p class="sig">- Caleb</p>
+  <p>Chicago has Vietnamese on Argyle, Pakistani on Devon, and a lot more in between. But it's easy to keep going back to the same few places.</p>
+  <p>The passport is a thin booklet with the look and feel of a real one. Each country gets a page about one independent restaurant and the people who run it, along with what to order and where to find it. When you eat there, the restaurant stamps your page, and on your first visit you get a free appetizer or dessert with your entr&eacute;e.</p>
+  <p>A little about me: I'm 24 and live in Lincoln Park. I moved to Chicago two years ago and I love food and traveling. I started this to get people exploring parts of the city they don't usually see.</p>
+  <p>I'm choosing first-edition restaurants by December 4 and launching at the start of 2027. I'm contacting restaurants one at a time, so if you received an email from me, this is what it was about. You can reach me directly by replying to that email.</p>
+  <p class="sig">Caleb McClatchey</p>
 
   <hr>
 
   <div class="two">
     <section>
-      <h2 class="sans">Restaurant owners</h2>
-      <p>It's free, and I'm not going to start charging you later. You'd get a page in it.</p>
-      <p>You'd just stamp people's passports and give them something small the first time they come in. Could be a drink or a side, your call. Doesn't need to be a discount.</p>
-      <p>The easiest thing is to just reply to my email. Or leave a number here and I'll call you.</p>
+      <h2 class="sans">For restaurant owners</h2>
+      <p>I chose each restaurant because it's independent, well reviewed, and focused on its country's food. Yours would be the only one for its country, so anyone who wants that stamp has to come to you.</p>
+      <p>Being in the passport is completely free, now and later. It's paid for by the people who buy it, not by restaurants. The only thing it costs you is the one-time appetizer or dessert, and you choose what that is.</p>
+      <p>To get started, I'll send you a 5-minute form to confirm the details, and I'll write your page from there. You'll see and approve it before anything is printed, and if you change your mind before then, I'll take it out.</p>
+      <p>I'll provide the stamp. When a passport holder orders an entr&eacute;e on their first visit, your staff stamps their page and brings out a free appetizer or dessert. You set the details up front, such as which item and one per party. It's once per passport, and only for this edition.</p>
+      <p>If you're interested, just reply to my email. Or leave your number here and I'll call you outside your busy hours.</p>
       <form data-kind="restaurant" novalidate>
         <input name="restaurant" aria-label="Restaurant name" placeholder="Restaurant name" autocomplete="organization" required>
         <input name="contact" type="tel" aria-label="Phone number" placeholder="Phone number" autocomplete="tel" required>
+        <input name="best_time" class="opt" aria-label="Best time to call (optional)" placeholder="Best time to call (optional)" autocomplete="off">
         <input name="website" class="hp" tabindex="-1" autocomplete="off" aria-hidden="true">
-        <button>Call me</button>
-        <p class="done" hidden>Got it, I'll call you in a day or two.</p>
+        <button>Request a call</button>
+        <p class="done" hidden>Got it. I'll call within a day or two.</p>
       </form>
     </section>
     <section>
-      <h2 class="sans">Want one?</h2>
-      <p>Leave your email and I'll email you once I know the price and the date.</p>
+      <h2 class="sans">Want a passport?</h2>
+      <p>It will be about $30. Leave your email and I'll send you one message when it's ready to buy.</p>
       <form data-kind="passport" novalidate>
         <input name="email" type="email" aria-label="Your email" placeholder="Your email" autocomplete="email" required>
         <input name="website" class="hp" tabindex="-1" autocomplete="off" aria-hidden="true">
-        <button>Tell me when</button>
-        <p class="done" hidden>Cool, I'll email you when I know the price and date.</p>
+        <button>Notify me</button>
+        <p class="done" hidden>Thanks! I'll email you when it's ready.</p>
       </form>
     </section>
   </div>
@@ -106,6 +110,7 @@ document.querySelectorAll("form").forEach(function (form) {
     if (form.website.value) return; // bot trap
     var data = { kind: form.dataset.kind, ref: ref, page: location.href };
     fields.forEach(function (f) { data[f.name] = f.value.trim(); });
+    form.querySelectorAll("input.opt").forEach(function (f) { if (f.value.trim()) data[f.name] = f.value.trim(); });
     data._subject = form.dataset.kind === "restaurant" ? "Restaurant interested: " + data.restaurant : "Passport sign-up";
     var btn = form.querySelector("button");
     btn.disabled = true;
